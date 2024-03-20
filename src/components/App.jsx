@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import reactLogo from '../assets/react.svg';
 import viteLogo from '/vite.svg';
 import apiKey from '../config';
@@ -15,6 +15,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [query, setQuery] = useState('');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -33,26 +35,27 @@ function App() {
           console.log('Error fetching and parsing data:', error);
         });
     }
-    switch(location.pathname) {
+    switch (location.pathname) {
       case '/cats':
-        receiveData('cats'); 
+        receiveData('cats');
         break;
       case '/dogs':
-        receiveData('dogs'); 
+        receiveData('dogs');
         break;
       case '/computers':
-        receiveData('computers'); 
+        receiveData('computers');
         break;
-      default: 
+      default:
         receiveData('cats'); // Optional: Make cats the default
     }
 
-    return () => { activeFetch = false; }; 
+    return () => { activeFetch = false; };
   }, [query, location.pathname]);
 
   const handleQueryChange = searchText => {
     setQuery(searchText);
     receiveData(searchText);
+    navigate(`/search/${searchText}`);
   };
 
   return (
@@ -64,6 +67,9 @@ function App() {
         <Photolist photos={photos} loading={loading} />
         <Routes>
           <Route path="/" element={<Navigate to="/cats" />} />
+          <Route path="/cats" element={<Photolist photos={photos} loading={loading} />} />
+          <Route path="/dogs" element={<Photolist photos={photos} loading={loading} />} />
+          <Route path="/computers" element={<Photolist photos={photos} loading={loading} />} />
         </Routes>
       </div>
     </div>
