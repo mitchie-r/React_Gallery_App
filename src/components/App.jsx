@@ -15,7 +15,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [query, setQuery] = useState('');
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,20 +58,19 @@ function App() {
   };
 
   return (
-    <div>
-      <div className="container">
-        <h1>Flickr Gallery</h1>
-        <Search handleQueryChange={handleQueryChange} />
-        <Nav />
-        <Photolist photos={photos} loading={loading} />
-        <Routes>
-          <Route path="/" element={<Navigate to="/cats" />} />
-          <Route path="/cats" element={<Photolist photos={photos} loading={loading} />} />
-          <Route path="/dogs" element={<Photolist photos={photos} loading={loading} />} />
-          <Route path="/computers" element={<Photolist photos={photos} loading={loading} />} />
-        </Routes>
+      <div>
+        <div className="container">
+          <h1>Flickr Gallery</h1>
+          <Nav />
+          <Routes>
+            <Route path="/" element={<Navigate to="/cats" />} />
+            <Route path="/cats" element={<Photolist data={photos} loading={loading} />} />
+            <Route path="/dogs" element={<Photolist data={photos} loading={loading} />} />
+            <Route path="/computers" element={<Photolist data={photos} loading={loading} />} />
+            <Route path="/search/:query" element={<Photolist data={photos} loading={loading} />} />
+          </Routes>
+        </div>
       </div>
-    </div>
   );
 }
 
