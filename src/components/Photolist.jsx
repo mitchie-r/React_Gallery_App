@@ -5,7 +5,6 @@ import NotFound from "./NotFound";
 
 
 const Photolist = props => {
-  let { query } = useParams()
   let photos;
   const results = props.data
   if (results.length > 0) {
