@@ -61,13 +61,14 @@ function App() {
       <div>
         <div className="container">
           <h1>Flickr Gallery</h1>
+          <Search changeQuery={handleQueryChange} />
           <Nav />
           <Routes>
             <Route path="/" element={<Navigate to="/cats" />} />
-            <Route path="/cats" element={<Photolist data={photos} loading={loading} />} />
-            <Route path="/dogs" element={<Photolist data={photos} loading={loading} />} />
-            <Route path="/computers" element={<Photolist data={photos} loading={loading} />} />
-            <Route path="/search/:query" element={<Photolist data={photos} loading={loading} />} />
+            <Route path="/cats" element={<Photolist data={photos} />} />
+            <Route path="/dogs" element={<Photolist data={photos} />} />
+            <Route path="/computers" element={<Photolist data={photos}  />} />
+            <Route path="/search/:query" element={<Photolist data={photos} />} />
           </Routes>
         </div>
       </div>
