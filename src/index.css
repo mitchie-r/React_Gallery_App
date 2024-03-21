@@ -49,7 +49,14 @@ input {
   width: 100%;
   margin-bottom: 1em;
 }
-
+.no-flickers  {
+  color: red !important;
+  margin-left: 360px;
+  height: 200px;
+  padding-top: 62px;
+  text-align: center;
+  font-size: 14px;
+}
 .main-nav a {
   display: block;
   background: #438bbd;

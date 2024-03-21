@@ -11,9 +11,9 @@ import Nav from './Nav';
 import NotFound from './NotFound';
 
 function App() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [photos, setPhotos] = useState([]);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -23,7 +23,8 @@ function App() {
       .then(response => {
         setLoading(false);
         setPhotos(response.data.photos.photo);
-        
+        setLoading(false);
+
       })
       .catch(error => {
         console.log('Error fetching and parsing data:', error);
@@ -43,7 +44,7 @@ function App() {
         receiveData('computers');
         break;
       default:
-        receiveData('cats'); 
+        receiveData('cats');
     }
   }, [location]);
 
@@ -53,22 +54,27 @@ function App() {
   };
 
   return (
-      <div>
-        <div className="container">
-          <h1>Flickr Gallery</h1>
-          <Search changeQuery={handleQueryChange} />
-          <Nav />
-          <Routes>
-            <Route path="/" element={<Navigate to="/cats" />} />
-            <Route path="/cats" element={<Photolist data={photos} />} />
-            <Route path="/dogs" element={<Photolist data={photos} />} />
-            <Route path="/computers" element={<Photolist data={photos}  />} />
-            <Route path="/search/:query" element={<Photolist data={photos} />} />
-            <Route path="/*" element={<NotFound /> } />
-          
-          </Routes>
-        </div>
+    <div>
+      <div className="container">
+        <h1>Flickr Gallery</h1>
+        <Search changeQuery={handleQueryChange} />
+        <Nav />
+        {loading ? (
+          <div>
+            <h3>Loading...</h3>
+          </div>
+        ) : (
+        <Routes>
+          <Route path="/" element={<Navigate to="/cats" />} />
+          <Route path="/cats" element={<Photolist data={photos} />} />
+          <Route path="/dogs" element={<Photolist data={photos} />} />
+          <Route path="/computers" element={<Photolist data={photos} />} />
+          <Route path="/search/:query" element={<Photolist data={photos} />} />
+          <Route path="/*" element={<NotFound />} />
+        </Routes>
+        )}
       </div>
+    </div>
   );
 }
 
