@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import apiKey from '../config';
 import '../App.css';
 
@@ -16,6 +16,7 @@ function App() {
   const [photos, setPhotos] = useState([]);
   const [query, setQuery] = useState("");
   const location = useLocation();
+  const navigate = useNavigate();
   // Function receives data from flicker
   function fetchData(query) {
     axios
@@ -33,24 +34,43 @@ function App() {
   // Use Effect to populate correct pictures and set default to cats
   useEffect(() => {
     setLoading(true);
-    switch (location.pathname) {
-      case '/cats':
-        fetchData('cats');
-        break;
-      case '/dogs':
-        fetchData('dogs');
-        break;
-      case '/computers':
-        fetchData('computers');
-        break;
-      default:
-        fetchData('cats');
+    // Extracts search to work with correct route
+    const extractSearchTerm = () => {
+      const pathParts = location.pathname.split('/');
+      if (pathParts[1] === 'search') {
+        return pathParts[2];
+      }
+      return null;
+    }
+  
+    const searchTerm = extractSearchTerm();
+  
+    if (location.pathname.startsWith('/search')) {
+      if (searchTerm) {
+        fetchData(searchTerm);
+      }
+    } else {
+      switch (location.pathname) {
+        case '/cats':
+          fetchData('cats');
+          break;
+        case '/dogs':
+          fetchData('dogs');
+          break;
+        case '/computers':
+          fetchData('computers');
+          break;
+        default:
+          fetchData('cats');
+      }
     }
   }, [location]);
   // Handles changes in the query
   const handleQueryChange = (searchText) => {
     setQuery(searchText);
     fetchData(searchText);
+    navigate(`/search/${encodeURIComponent(searchText)}`); // Use navigate function
+    
   };
   // Routes with loading to handle NotFound message
   return (
