@@ -1,7 +1,7 @@
 import React from 'react'; // Importing useContext from React
 import { useParams } from 'react-router-dom'; // Importing useParams
 import Photo from "./Photo";
-import NoFlickers from "./NoFlickers";
+import NoFlickrs from "./NoFlickrs";
 
 // Lists all photos 
 const Photolist = props => {
@@ -13,7 +13,7 @@ const Photolist = props => {
       <Photo key={photo.id} photo={photo} />); 
 
   } else {
-    photos = <NoFlickers />
+    photos = <NoFlickrs />
   }
   return (
     <div className="photo-container">

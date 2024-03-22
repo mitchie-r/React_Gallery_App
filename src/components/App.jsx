@@ -17,7 +17,7 @@ function App() {
   const [query, setQuery] = useState("");
   const location = useLocation();
   // Function receives data from flicker
-  function receiveData(query) {
+  function fetchData(query) {
     axios
       .get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
       .then(response => {
@@ -35,22 +35,22 @@ function App() {
     setLoading(true);
     switch (location.pathname) {
       case '/cats':
-        receiveData('cats');
+        fetchData('cats');
         break;
       case '/dogs':
-        receiveData('dogs');
+        fetchData('dogs');
         break;
       case '/computers':
-        receiveData('computers');
+        fetchData('computers');
         break;
       default:
-        receiveData('cats');
+        fetchData('cats');
     }
   }, [location]);
   // Handles changes in the query
   const handleQueryChange = (searchText) => {
     setQuery(searchText);
-    receiveData(searchText);
+    fetchData(searchText);
   };
   // Routes with loading to handle NotFound message
   return (
