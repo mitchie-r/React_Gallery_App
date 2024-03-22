@@ -69,7 +69,8 @@ function App() {
   const handleQueryChange = (searchText) => {
     setQuery(searchText);
     fetchData(searchText);
-    navigate(`/search/${encodeURIComponent(searchText)}`); // Use navigate function
+    // Navigates to correct route using useNavigate
+    navigate(`/search/${encodeURIComponent(searchText)}`); 
     
   };
   // Routes with loading to handle NotFound message
