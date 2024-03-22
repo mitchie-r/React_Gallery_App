@@ -1,10 +1,10 @@
 import React from 'react'
+import NoResults from '/NoResults.jpg'
 
 // Displays message if no results are available
 const NoFlickrs = props => (
     <li className='no-flickers' >
-          <h2>Unfortunately, no results found!</h2>
-          <h3>Don't worry, we'll help you find your way back:</h3>
+          <h2>Unfortunately, No Results Found!</h2>
           </li>
 );
 export default NoFlickrs;
