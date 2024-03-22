@@ -1,5 +1,5 @@
 import React from 'react';
-
+// Photo function with photo pased for the src
 const Photo = ({photo}) => {
     return (
         <li>

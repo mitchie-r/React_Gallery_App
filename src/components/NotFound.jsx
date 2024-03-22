@@ -1,6 +1,6 @@
 import React from 'react';
 import LostAstronautImage from '/lost-astronaut.jpg'; 
-
+// Customized NotFound Page
 const NotFound = () => {
   return (
     <div className="not-found-container">

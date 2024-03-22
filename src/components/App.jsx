@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import apiKey from '../config';
 import '../App.css';
 
@@ -10,13 +10,13 @@ import Photolist from './Photolist';
 import Nav from './Nav';
 import NotFound from './NotFound';
 
+// Main App
 function App() {
   const [loading, setLoading] = useState(true);
   const [photos, setPhotos] = useState([]);
   const [query, setQuery] = useState("");
-  const navigate = useNavigate();
   const location = useLocation();
-
+  // Function receives data from flicker
   function receiveData(query) {
     axios
       .get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
@@ -30,7 +30,7 @@ function App() {
         console.log('Error fetching and parsing data:', error);
       }), [query];
   }
-
+  // Use Effect to populate correct pictures and set default to cats
   useEffect(() => {
     setLoading(true);
     switch (location.pathname) {
@@ -47,12 +47,12 @@ function App() {
         receiveData('cats');
     }
   }, [location]);
-
+  // Handles changes in the query
   const handleQueryChange = (searchText) => {
     setQuery(searchText);
     receiveData(searchText);
   };
-
+  // Routes with loading to handle NotFound message
   return (
     <div>
       <div className="container">
@@ -65,7 +65,7 @@ function App() {
           </div>
         ) : (
         <Routes>
-          <Route path="/" element={<Navigate to="/cats" />} />
+          <Route path="/" element={<Navigate replace to="/cats" />} />
           <Route path="/cats" element={<Photolist data={photos} />} />
           <Route path="/dogs" element={<Photolist data={photos} />} />
           <Route path="/computers" element={<Photolist data={photos} />} />

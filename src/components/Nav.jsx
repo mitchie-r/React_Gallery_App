@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-
+// Navigation using Navlink
 const Nav = () => {
   return (
     <nav className="main-nav">

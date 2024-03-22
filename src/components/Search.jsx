@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
 
+// Search function
 const Search = props => {
   const searchText = useRef(null);
-
+  // Handler for submission of search
   const handleSubmit = e => {
     e.preventDefault();
     props.changeQuery(searchText.current.value);

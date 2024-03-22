@@ -1,6 +1,6 @@
 import React from 'react'
 
-
+// Displays message if no results are available
 const NoFlickers = props => (
     <li className='no-flickers' >
           <h2>Unfortunately, no results found!</h2>
